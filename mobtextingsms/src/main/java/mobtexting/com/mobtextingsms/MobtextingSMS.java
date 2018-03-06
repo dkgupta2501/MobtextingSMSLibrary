@@ -43,7 +43,7 @@ public class MobtextingSMS {
      * @throws UnsupportedEncodingException
      */
     public static void MobtextingAPICallBackResponse(final APIResponseInterface responseInterface, final Map<String, String> paramVal, final String URL, final int method,
-                                                     Context context) throws UnsupportedEncodingException {
+                                                     Context context){
         //show progress dialog
         final ProgressDialog dialog = new ProgressDialog(context, R.style.MyAlertDialogStyle);
         try {
@@ -57,111 +57,118 @@ public class MobtextingSMS {
         dialog.show();
 
         if (method == 1) {
-
-            StringRequest stringRequest = new StringRequest(method, URLEncoder.encode(URL, "UTF-8"),
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
+            try {
+                StringRequest stringRequest = new StringRequest(method, URLEncoder.encode(URL, "UTF-8"),
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    dialog.cancel();
+                                    Log.d("response", response);
+                                    responseInterface.onSuccessResponse(response);
+                                } catch (Exception e) {
+                                    responseInterface.onFailureResponse("Something went wrong!");
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                String message = null;
                                 dialog.cancel();
-                                Log.d("response", response);
-                                responseInterface.onSuccessResponse(response);
-                            } catch (Exception e) {
-                                responseInterface.onFailureResponse("Something went wrong!");
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            String message = null;
-                            dialog.cancel();
 
-                            if (volleyError instanceof NetworkError) {
-                                message = "Cannot connect to Internet...Please check your connection!";
-                            } else if (volleyError instanceof ServerError) {
-                                message = "The server could not be found. Please try again after some time!!";
-                            } else if (volleyError instanceof AuthFailureError) {
-                                message = "Cannot connect to Internet...Please check your connection!";
-                            } else if (volleyError instanceof ParseError) {
-                                message = "Parsing error! Please try again after some time!!";
-                            } else if (volleyError instanceof NoConnectionError) {
-                                message = "Cannot connect to Internet...Please check your connection!";
-                            } else if (volleyError instanceof TimeoutError) {
-                                message = "Connection TimeOut! Please check your internet connection.";
-                            }
+                                if (volleyError instanceof NetworkError) {
+                                    message = "Cannot connect to Internet...Please check your connection!";
+                                } else if (volleyError instanceof ServerError) {
+                                    message = "The server could not be found. Please try again after some time!!";
+                                } else if (volleyError instanceof AuthFailureError) {
+                                    message = "Cannot connect to Internet...Please check your connection!";
+                                } else if (volleyError instanceof ParseError) {
+                                    message = "Parsing error! Please try again after some time!!";
+                                } else if (volleyError instanceof NoConnectionError) {
+                                    message = "Cannot connect to Internet...Please check your connection!";
+                                } else if (volleyError instanceof TimeoutError) {
+                                    message = "Connection TimeOut! Please check your internet connection.";
+                                }
 
-                            if (!(message == null)) {
-                                responseInterface.onFailureResponse(message);
+                                if (!(message == null)) {
+                                    responseInterface.onFailureResponse(message);
+                                }
                             }
+                        }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        for (Map.Entry<String, String> entry : paramVal.entrySet()) {
+                            Log.d("valuecall", entry.getKey() + " : " + entry.getValue());
+                            paramVal.put(entry.getKey(), entry.getValue());
                         }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    for (Map.Entry<String, String> entry : paramVal.entrySet()) {
-                        Log.d("valuecall", entry.getKey() + " : " + entry.getValue());
-                        paramVal.put(entry.getKey(), entry.getValue());
+                        return paramVal;
                     }
-                    return paramVal;
-                }
-            };
+                };
 
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    0,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                        0,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-            VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+                VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+            }catch (Exception e){
+                responseInterface.onFailureResponse("Something went wrong!");
+            }
 
         } else if (method == 0) {
-            buildUrl=buildURI(URL,paramVal);
-            StringRequest stringRequest = new StringRequest(method, URLEncoder.encode(buildUrl.toString(), "UTF-8"),
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
+            try {
+                buildUrl = buildURI(URL, paramVal);
+                StringRequest stringRequest = new StringRequest(method, URLEncoder.encode(buildUrl.toString(), "UTF-8"),
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    dialog.cancel();
+                                    Log.d("response", response);
+                                    responseInterface.onSuccessResponse(response);
+                                } catch (Exception e) {
+                                    responseInterface.onFailureResponse("Something went wrong!");
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                String message = null;
                                 dialog.cancel();
-                                Log.d("response", response);
-                                responseInterface.onSuccessResponse(response);
-                            } catch (Exception e) {
-                                responseInterface.onFailureResponse("Something went wrong!");
+
+                                if (volleyError instanceof NetworkError) {
+                                    message = "Cannot connect to Internet...Please check your connection!";
+                                } else if (volleyError instanceof ServerError) {
+                                    message = "The server could not be found. Please try again after some time!!";
+                                } else if (volleyError instanceof AuthFailureError) {
+                                    message = "Cannot connect to Internet...Please check your connection!";
+                                } else if (volleyError instanceof ParseError) {
+                                    message = "Parsing error! Please try again after some time!!";
+                                } else if (volleyError instanceof NoConnectionError) {
+                                    message = "Cannot connect to Internet...Please check your connection!";
+                                } else if (volleyError instanceof TimeoutError) {
+                                    message = "Connection TimeOut! Please check your internet connection.";
+                                }
+
+                                if (!(message == null)) {
+                                    responseInterface.onFailureResponse(message);
+                                }
                             }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            String message = null;
-                            dialog.cancel();
-
-                            if (volleyError instanceof NetworkError) {
-                                message = "Cannot connect to Internet...Please check your connection!";
-                            } else if (volleyError instanceof ServerError) {
-                                message = "The server could not be found. Please try again after some time!!";
-                            } else if (volleyError instanceof AuthFailureError) {
-                                message = "Cannot connect to Internet...Please check your connection!";
-                            } else if (volleyError instanceof ParseError) {
-                                message = "Parsing error! Please try again after some time!!";
-                            } else if (volleyError instanceof NoConnectionError) {
-                                message = "Cannot connect to Internet...Please check your connection!";
-                            } else if (volleyError instanceof TimeoutError) {
-                                message = "Connection TimeOut! Please check your internet connection.";
-                            }
-
-                            if (!(message == null)) {
-                                responseInterface.onFailureResponse(message);
-                            }
-                        }
-                    }) {
-            };
+                        }) {
+                };
 
 
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    0,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                        0,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-            VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+                VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+            }catch (Exception e){
+                responseInterface.onFailureResponse("Something went wrong!");
+            }
         }
     }
 
@@ -184,7 +191,7 @@ public class MobtextingSMS {
     /*
         get Build URL
      */
-    public String getGetMethodBuildURL(){
+    public static String getGetMethodBuildURL(){
         if(buildUrl.isEmpty()) {
             return "URL not Found";
         }else{
