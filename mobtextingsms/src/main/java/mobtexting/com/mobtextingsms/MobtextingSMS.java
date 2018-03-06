@@ -28,7 +28,7 @@ import mobtexting.com.mobtextingsms.mobtextinginterface.VolleySingleton;
  */
 
 public class MobtextingSMS {
-    public static void MobtextingAPICallBackResponse(final APIResponseInterface responseInterface, final Map<String,String> paramVal, final String URL, final Request.Method method,
+    public static void MobtextingAPICallBackResponse(final APIResponseInterface responseInterface, final Map<String,String> paramVal, final String URL, final int method,
                                                   Context context){
         //show progress dialog
         final ProgressDialog dialog = new ProgressDialog(context, R.style.MyAlertDialogStyle);
@@ -42,7 +42,7 @@ public class MobtextingSMS {
         dialog.setContentView(R.layout.progressdialog);
         dialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+        StringRequest stringRequest = new StringRequest(method, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
