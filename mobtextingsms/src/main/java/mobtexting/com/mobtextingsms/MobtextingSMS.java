@@ -58,7 +58,7 @@ public class MobtextingSMS {
 
         if (method == 1) {
             try {
-                StringRequest stringRequest = new StringRequest(method, URLEncoder.encode(URL, "UTF-8"),
+                StringRequest stringRequest = new StringRequest(method, URL,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -119,7 +119,7 @@ public class MobtextingSMS {
         } else if (method == 0) {
             try {
                 buildUrl = buildURI(URL, paramVal);
-                StringRequest stringRequest = new StringRequest(method, URLEncoder.encode(buildUrl.toString(), "UTF-8"),
+                StringRequest stringRequest = new StringRequest(method, buildUrl,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {

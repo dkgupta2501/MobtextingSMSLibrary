@@ -29,9 +29,6 @@ public class MainActivity extends AppCompatActivity {
             paramVal.put("content_type", "");
             paramVal.put("sender_id", "");
 
-            String buildURL=MobtextingSMS.getGetMethodBuildURL();
-            Log.d("buildURL",buildURL);
-
             MobtextingSMS.MobtextingAPICallBackResponse(new APIResponseInterface() {
                 @Override
                 public void onSuccessResponse(String s) {
@@ -42,7 +39,11 @@ public class MainActivity extends AppCompatActivity {
                 public void onFailureResponse(String s) {
                     Log.d("response", s);
                 }
-            }, paramVal, "http://api.mobtexting.com/v1/sms", Method.METHOD_GET, MainActivity.this);
+            }, paramVal, "http://api.mobtexting.com/v1/sms", Method.METHOD_POST, MainActivity.this);
+
+
+        String buildURL=MobtextingSMS.getGetMethodBuildURL();
+        Log.d("buildURL",buildURL);
 
 
     }
