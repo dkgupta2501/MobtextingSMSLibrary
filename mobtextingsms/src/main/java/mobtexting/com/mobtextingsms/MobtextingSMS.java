@@ -192,7 +192,7 @@ public class MobtextingSMS {
         get Build URL
      */
     public static String getGetMethodBuildURL(){
-        if(buildUrl.isEmpty()) {
+        if(buildUrl==null) {
             return "URL not Found";
         }else{
             return buildUrl;

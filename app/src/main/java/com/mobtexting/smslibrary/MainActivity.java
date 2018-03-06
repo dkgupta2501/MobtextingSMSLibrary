@@ -29,19 +29,20 @@ public class MainActivity extends AppCompatActivity {
             paramVal.put("content_type", "");
             paramVal.put("sender_id", "");
 
-//            String buildURL=MobtextingSMS.getGetMethodBuildURL();
-//
-//            MobtextingSMS.MobtextingAPICallBackResponse(new APIResponseInterface() {
-//                @Override
-//                public void onSuccessResponse(String s) {
-//                    Log.d("response", s);
-//                }
-//
-//                @Override
-//                public void onFailureResponse(String s) {
-//                    Log.d("response", s);
-//                }
-//            }, paramVal, "http://api.mobtexting.com/v1/sms", Method.METHOD_GET, MainActivity.this);
+            String buildURL=MobtextingSMS.getGetMethodBuildURL();
+            Log.d("buildURL",buildURL);
+
+            MobtextingSMS.MobtextingAPICallBackResponse(new APIResponseInterface() {
+                @Override
+                public void onSuccessResponse(String s) {
+                    Log.d("response", s);
+                }
+
+                @Override
+                public void onFailureResponse(String s) {
+                    Log.d("response", s);
+                }
+            }, paramVal, "http://api.mobtexting.com/v1/sms", Method.METHOD_GET, MainActivity.this);
 
 
     }
