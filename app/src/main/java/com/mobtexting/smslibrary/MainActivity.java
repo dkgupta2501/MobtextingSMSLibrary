@@ -1,5 +1,6 @@
 package com.mobtexting.smslibrary;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
             public void onFailureResponse(String s) {
                 Log.d("response",s);
             }
-        },paramVal,"http://api.mobtexting.com/v1/sms", Method.METHOD_POST,MainActivity.this);
+        },paramVal,"http://api.mobtexting.com/v1/sms", Method.METHOD_GET,MainActivity.this);
+
 
     }
+
 }

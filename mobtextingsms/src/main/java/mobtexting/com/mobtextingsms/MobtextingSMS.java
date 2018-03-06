@@ -31,6 +31,17 @@ import mobtexting.com.mobtextingsms.mobtextinginterface.VolleySingleton;
  */
 
 public class MobtextingSMS {
+    public static String buildUrl;
+
+    /**
+     *
+     * @param responseInterface
+     * @param paramVal
+     * @param URL
+     * @param method
+     * @param context
+     * @throws UnsupportedEncodingException
+     */
     public static void MobtextingAPICallBackResponse(final APIResponseInterface responseInterface, final Map<String, String> paramVal, final String URL, final int method,
                                                      Context context) throws UnsupportedEncodingException {
         //show progress dialog
@@ -95,17 +106,16 @@ public class MobtextingSMS {
                 }
             };
 
-
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                     0,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
             VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+
         } else if (method == 0) {
-            Uri buildURi=buildURI(URL,paramVal);
-            Log.d("buildURi",buildURi.toString());
-            StringRequest stringRequest = new StringRequest(method, URLEncoder.encode(buildURi.toString(), "UTF-8"),
+            buildUrl=buildURI(URL,paramVal);
+            StringRequest stringRequest = new StringRequest(method, URLEncoder.encode(buildUrl.toString(), "UTF-8"),
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -155,14 +165,30 @@ public class MobtextingSMS {
         }
     }
 
-    private static Uri buildURI(String url, Map<String, String> params) {
 
+    /**
+     * build GET Method URL
+     * @param url
+     * @param params
+     * @return
+     */
+    private static String buildURI(String url, Map<String, String> params) {
         // build url with parameters.
         Uri.Builder builder = Uri.parse(url).buildUpon();
         for (Map.Entry<String, String> entry : params.entrySet()) {
             builder.appendQueryParameter(entry.getKey(), entry.getValue());
         }
+        return builder.build().toString();
+    }
 
-        return builder.build();
+    /*
+        get Build URL
+     */
+    public String getGetMethodBuildURL(){
+        if(buildUrl.isEmpty()) {
+            return "URL not Found";
+        }else{
+            return buildUrl;
+        }
     }
 }
