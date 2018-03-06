@@ -64,7 +64,6 @@ public class MobtextingSMS {
                             public void onResponse(String response) {
                                 try {
                                     dialog.cancel();
-                                    Log.d("response", response);
                                     responseInterface.onSuccessResponse(response);
                                 } catch (Exception e) {
                                     responseInterface.onFailureResponse("Something went wrong!");
@@ -99,7 +98,7 @@ public class MobtextingSMS {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         for (Map.Entry<String, String> entry : paramVal.entrySet()) {
-                            Log.d("valuecall", entry.getKey() + " : " + entry.getValue());
+//                            Log.d("valuecall", entry.getKey() + " : " + entry.getValue());
                             paramVal.put(entry.getKey(), entry.getValue());
                         }
                         return paramVal;
@@ -125,7 +124,6 @@ public class MobtextingSMS {
                             public void onResponse(String response) {
                                 try {
                                     dialog.cancel();
-                                    Log.d("response", response);
                                     responseInterface.onSuccessResponse(response);
                                 } catch (Exception e) {
                                     responseInterface.onFailureResponse("Something went wrong!");
