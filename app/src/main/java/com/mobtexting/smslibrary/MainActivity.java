@@ -14,19 +14,19 @@ import mobtexting.com.mobtextingsms.mobtextinginterface.APIResponseInterface;
 import mobtexting.com.mobtextingsms.mobtextinginterface.Method;
 
 public class MainActivity extends AppCompatActivity {
-    int method_post=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //send SMS from mobtexting
         Map<String,String> paramVal=new HashMap<>();
-        paramVal.put("api_key","asdjsdksahdaskhdkasjhdkasj");
+        paramVal.put("api_key","xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         paramVal.put("message","this is a test");
         paramVal.put("mobile_no","7250705072");
         paramVal.put("message_type","normal");
         paramVal.put("content_type","");
-        paramVal.put("sender_id","MobTXT");
+        paramVal.put("sender_id","");
         MobtextingSMS.MobtextingAPICallBackResponse(new APIResponseInterface() {
             @Override
             public void onSuccessResponse(String s) {
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailureResponse(String s) {
                 Log.d("response",s);
             }
-        },paramVal,"http://api.mobtexting.com/v1/sms", Method.METHOD_POST,getBaseContext());
+        },paramVal,"http://api.mobtexting.com/v1/sms", Method.METHOD_POST,MainActivity.this);
 
     }
 }
