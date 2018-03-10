@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
         //send SMS from mobtexting using POST menthid
         Map<String, String> paramVal = new HashMap<>();
-        paramVal.put("EmailMobile", "xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        paramVal.put("Password", "this is a test");
+        paramVal.put("api_key", "xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        paramVal.put("message", "this is a test");
         paramVal.put("mobile_no", "72********");
         paramVal.put("message_type", "normal");
         paramVal.put("content_type", "");
@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         //send SMS from Mobtexting using GET Method
         Map<String, String> paramVal1 = new HashMap<>();
-        paramVal1.put("EmailMobile", "xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        paramVal1.put("Password", "this is a test");
+        paramVal1.put("api_key", "xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        paramVal1.put("message", "this is a test");
         paramVal1.put("mobile_no", "72********");
         paramVal1.put("message_type", "normal");
         paramVal1.put("content_type", "");
