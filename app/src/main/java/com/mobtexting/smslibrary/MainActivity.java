@@ -20,10 +20,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //send SMS from mobtexting
+        //send SMS from mobtexting using POST menthid
         Map<String, String> paramVal = new HashMap<>();
-        paramVal.put("api_key", "xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        paramVal.put("message", "this is a test");
+        paramVal.put("EmailMobile", "xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        paramVal.put("Password", "this is a test");
         paramVal.put("mobile_no", "72********");
         paramVal.put("message_type", "normal");
         paramVal.put("content_type", "");
@@ -38,13 +38,34 @@ public class MainActivity extends AppCompatActivity {
             public void onFailureResponse(String s) {
                 Log.d("response", s);
             }
-        }, paramVal, "http://api.mobtexting.com/v1/sms", Method.METHOD_GET, MainActivity.this);
+        }, paramVal, "http://api.mobtexting.com/v1/sms", Method.METHOD_POST, MainActivity.this);
 
 
 
         //get Build URL when pass param as GET Method
         String buildURL = MobtextingSMS.getGetMethodBuildURL();
         Log.d("buildURL", buildURL);
+
+
+        //send SMS from Mobtexting using GET Method
+        Map<String, String> paramVal1 = new HashMap<>();
+        paramVal1.put("EmailMobile", "xxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        paramVal1.put("Password", "this is a test");
+        paramVal1.put("mobile_no", "72********");
+        paramVal1.put("message_type", "normal");
+        paramVal1.put("content_type", "");
+        paramVal1.put("sender_id", "******");
+        MobtextingSMS.MobtextingAPICallBackResponse(new APIResponseInterface() {
+            @Override
+            public void onSuccessResponse(String s) {
+                Log.d("response", s);
+            }
+
+            @Override
+            public void onFailureResponse(String s) {
+                Log.d("response", s);
+            }
+        }, paramVal1, "http://api.mobtexting.com/v1/sms", Method.METHOD_GET, MainActivity.this);
 
 
     }
