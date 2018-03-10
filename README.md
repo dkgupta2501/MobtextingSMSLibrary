@@ -18,7 +18,6 @@
 	}
 ```
 
-#### Sending Transaction SMS easily
 ## Send SMS using  POST Method 
 
 ```
